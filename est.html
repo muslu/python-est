@@ -1,0 +1,141 @@
+<html>
+
+<head>
+
+<title>3D PAY</title>
+
+<meta http-equiv="Content-Language" content="tr">
+
+ 
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-9">
+
+ 
+  <meta http-equiv="Pragma" content="no-cache">
+
+ 
+  <meta http-equiv="Expires" content="now">
+
+</head>
+
+ 
+<body>
+
+
+ 
+<center>
+
+            <form method="post" action="https://testsanalpos.est.com.tr/servlet/est3Dgate">
+		{% csrf_token %}
+                <table>
+
+                    <tr>
+
+                        <td>Kredi Kart Numarasi:</td>
+
+                        <td><input type="text" name="pan" size="20" value="4848480011226398"/>
+
+                    </tr>
+
+                    
+
+                    <tr>
+
+                        <td>Güvenlik Kodu:</td>
+
+                        <td><input type="text" name="cv2" size="4" value="000"/></td>
+
+                    </tr>
+
+                    
+
+                    <tr>
+
+                        <td>Son Kullanma Yılı:</td>
+
+                        <td><input type="text" name="Ecom_Payment_Card_ExpDate_Year" value="14"/></td>
+
+                    </tr>
+
+                    
+
+                    <tr>
+
+                        <td>Son Kullanma Ayı:</td>
+
+                        <td><input type="text" name="Ecom_Payment_Card_ExpDate_Month" value="06"/></td>
+
+                    </tr>
+
+                    
+
+                    <tr>
+
+                        <td>Visa/MC secimi</td>
+
+                        <td><select name="cardType">
+
+                            <option value="1" selected>Visa</option>
+
+                            <option value="2">MasterCard</option>
+
+                        </select>
+
+                    </tr>
+
+                    
+
+                    <tr>
+
+                        <td align="center" colspan="2">
+
+                            <input type="submit" value="Ödemeyi Tamamla"/>
+
+                        </td>
+
+                    </tr>
+
+                    Tutar: {{ amount }} - Taksit: {% if taksit != "" %}{{ taksit }}{% else %}Tek Çekim{% endif %}
+
+                </table>
+
+                <input type="hidden" name="clientid" value="{{ clientId }}">
+
+                <input type="hidden" name="amount" value="{{ amount }}">
+
+                <input type="hidden" name="oid" value="{{ oid }}">    
+
+                <input type="hidden" name="okUrl" value="{{ okUrl }}">
+
+                <input type="hidden" name="failUrl" value="{{ failUrl }}">
+
+                <input type="hidden" name="rnd" value="{{ rnd }}" >
+
+                <input type="hidden" name="hash" value="{{ hashi }}" >
+
+		            <input type="hidden" name="islemtipi" value="Auth" >
+
+		            <input type="hidden" name="taksit" value="{{ taksit }}" >
+
+                
+
+                <input type="hidden" name="storetype" value="3d_pay" >    
+
+                <input type="hidden" name="lang" value="tr">
+
+                <input type="hidden" name="currency" value="949">
+
+                <input type="hidden" name="firmaadi" value="Yazki">
+
+                
+
+
+                
+
+            </form>
+
+     
+        </center>
+
+    </body>
+
+</html>
