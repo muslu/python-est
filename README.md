@@ -38,5 +38,5 @@ https://testsanalpos.est.com.tr/servlet/est3Dgate
 Kart No:  4848480011226398 (Visa)
 CV2:      000
 Yıl:      14
-Ay:       06 <br />
+Ay:       06
 Kart Şifre: a
