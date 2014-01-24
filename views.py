@@ -39,3 +39,26 @@ def HemenAl(request, idsi):
     'storekey':storekey}, 
     
     context_instance=RequestContext(request))
+
+
+
+def PayOdeme(request):       #~ Cum 24 Oca 2014 15:40:54 EET  - Muslu YÜKSEKTEPE
+
+    if request.POST['mdStatus'] == "0":		Sonuc	=	"Onaylanmamış"
+    if request.POST['mdStatus'] == "1":		Sonuc	=	"Başarılı"
+    if request.POST['mdStatus'] == "2":		Sonuc	=	"Kart sahibi banka veya Kart 3D-Secure Üyesi Değil"
+    if request.POST['mdStatus'] == "3":		Sonuc	=	"Kart prefixi 3D-Secure sisteminde tanımlı değil"
+    if request.POST['mdStatus'] == "4":		Sonuc	=	"Authentication Attempt"
+    if request.POST['mdStatus'] == "5":		Sonuc	=	"Sistem ulaşılabilir değil"
+    if request.POST['mdStatus'] == "6":		Sonuc	=	"3D-Secure Hatası"
+    if request.POST['mdStatus'] == "7":		Sonuc	=	"Sistem Hatası"
+    if request.POST['mdStatus'] == "8":		Sonuc	=	"Geçersiz Kart"
+    if request.POST['mdStatus'] == "9":		Sonuc	=	"Üye İşyeri 3D-Secure sistemine kayıtlı değil"
+
+
+
+    if request.POST['mdStatus'] != "1":	
+	Sonuc = Sonuc + " " + str(request.POST['mdErrorMsg'])
+	
+
+    return render_to_response('estsonuc.html', {'Sonuc':Sonuc,}, context_instance=RequestContext(request))
