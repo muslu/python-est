@@ -1,26 +1,13 @@
-<html>
+{% extends "gerekli.html" %}
 
-<head>
+{% block head %}
 
-<title>3D PAY</title>
-
-<meta http-equiv="Content-Language" content="tr">
-
- 
-  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-9">
-
- 
-  <meta http-equiv="Pragma" content="no-cache">
-
- 
-  <meta http-equiv="Expires" content="now">
-
-</head>
-
- 
-<body>
+    <title>{% SiteBilgileri 'SITE_ADI' %} > EST ÖDEME</title>
 
 
+{% endblock head %}
+
+{% block orta %}
  
 <center>
 
@@ -30,7 +17,7 @@
 
                     <tr>
 
-                        <td>Kredi Kart Numarasi:</td>
+                        <td>Kredi Kart Numarası:</td>
 
                         <td><input type="text" name="pan" size="20" value="4848480011226398"/>
 
@@ -70,7 +57,7 @@
 
                     <tr>
 
-                        <td>Visa/MC secimi</td>
+                        <td>Visa/MasterCard</td>
 
                         <td><select name="cardType">
 
@@ -112,9 +99,9 @@
 
                 <input type="hidden" name="hash" value="{{ hashi }}" >
 
-		            <input type="hidden" name="islemtipi" value="Auth" >
+		<input type="hidden" name="islemtipi" value="Auth" >
 
-		            <input type="hidden" name="taksit" value="{{ taksit }}" >
+		<input type="hidden" name="taksit" value="{{ taksit }}" >
 
                 
 
@@ -124,7 +111,7 @@
 
                 <input type="hidden" name="currency" value="949">
 
-                <input type="hidden" name="firmaadi" value="Yazki">
+                <input type="hidden" name="firmaadi" value="Benim Firmam">
 
                 
 
@@ -136,6 +123,5 @@
      
         </center>
 
-    </body>
+{% endblock orta %}
 
-</html>
