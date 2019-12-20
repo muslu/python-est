@@ -1,30 +1,46 @@
 def HemenAl(request, idsi):
     
-    urun_detayi		=    	Urun.objects.get(id=idsi)
+    	urun_detayi		=    	Urun.objects.get(id=idsi)
     
     
-    import base64, hashlib
+    	import base64, hashlib
 
-    oid			=	''.join([random.choice(string.digits + string.letters) for i in range(0, 10)])
-    rnd			=	''.join([random.choice(string.digits + string.letters) for i in range(0, 30)])
-    
-    amount		= 	urun_detayi.Fiyat         # Islem tutari
+        #### ISBANK - ASSECCO
 
-    taksit 		= 	"12"         # taksit sayisi
-    
-    clientId		=	str(settings.__getattr__("CLIENTID"))
-    okUrl		=	str(settings.__getattr__("OKURL"))
-    failUrl		=	str(settings.__getattr__("FAILURL"))
-    islemtipi		=	str(settings.__getattr__("ISLEMTIPI"))
-    storekey		=	str(settings.__getattr__("STOREKEY"))
-    
+	asseco_oid = str(qs_orderid)
+	asseco_rnd = str(int(time.time()))
 
-    hashstr = clientId + oid + str(amount).replace(',','.') + okUrl + failUrl + islemtipi + taksit  + rnd + storekey
+	asseco_successurl = request.scheme_host + reverse('cc_asseco_paid_ok')
+	asseco_errorurl = request.scheme_host + reverse('cc_asseco_paid_error')
+	asseco_amount_due = amount_due
+
+	taksit = ""  # taksit sayisi
+
+	islemtipi = "Auth"
+	clientId = "700655000100"
+	storekey = "TRPS1234"
+
+	#### 20-12-2019 Muslu @Makdos
+	asseco_securethreedhash = clientId + asseco_oid + str(asseco_amount_due).replace(',','.') + asseco_successurl + asseco_errorurl + islemtipi + taksit + asseco_rnd + storekey
+
+	asseco_hash =  (b64encode(hashlib.sha1(asseco_securethreedhash.encode('utf-8')).digest())).decode('utf-8')
+
+	asseco_3d__dict = {
+	    'clientid': clientId,
+	    'asseco_hash': asseco_hash,
+	    'asseco_amount_due': asseco_amount_due,
+	    'asseco_successurl': asseco_successurl,
+	    'asseco_errorurl': asseco_errorurl,
+	    'asseco_oid': asseco_oid,
+	    'asseco_rnd': asseco_rnd,
+	    'islemtipi': islemtipi,
+	    'taksit': taksit
+	}
+
+	###+ ISBANK - ASSECCO
     
-    hashi = base64.b64encode(hashlib.sha1(hashstr).digest())
     
-    
-    return render_to_response(
+    return render(
     'est.html', 
     
     {'hashi':hashi,
@@ -36,9 +52,7 @@ def HemenAl(request, idsi):
     'clientId':clientId,
     'okUrl':okUrl,
     'failUrl':failUrl,
-    'storekey':storekey}, 
-    
-    context_instance=RequestContext(request))
+    'storekey':storekey})
 
 
 
